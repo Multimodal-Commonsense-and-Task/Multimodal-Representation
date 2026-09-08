@@ -1,0 +1,56 @@
+# Model arguments
+model_name_or_path: outputs/qwen2.5-1.5b-sft
+ref_model_name_or_path: ckpts/Qwen2.5-7B-Instruct
+torch_dtype: null
+attn_implementation: flash_attention_2
+
+# LoRA arguments
+use_peft: true
+lora_r: 16
+lora_alpha: 128
+lora_dropout: 0.05
+lora_target_modules:
+- q_proj
+- k_proj
+- v_proj
+- o_proj
+- gate_proj
+- up_proj
+- down_proj
+
+# Data training arguments
+dataset_mixer:
+  ${YOUR_DATA_PATH}: 1.0
+dataset_splits:
+- train
+- test
+preprocessing_num_workers: 12
+
+# DistiLLMTrainer arugments
+bf16: true
+do_eval: true
+eval_steps: 10000000
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+hub_model_id: qwen
+learning_rate: 5.0e-5
+log_level: info
+logging_steps: 100
+lr_scheduler_type: cosine
+max_length: 1024
+max_prompt_length: 512
+num_train_epochs: 1
+optim: adamw_torch
+output_dir: outputs/qwen2.5-1.5b-distillm2
+run_name: qwen2.5-1.5b-distillm2
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 2
+push_to_hub: false
+save_strategy: "steps"
+save_steps: 200
+save_total_limit: 20
+seed: 42
+warmup_ratio: 0.1
+loss_type: distillm_v2

@@ -5,6 +5,22 @@
 
 ## Research list
 
+* AC-Sampler: Accelerate And Correct Diffusion Sampling with Metropolis-Hastings Algorithm (ICLR 2026) - Minsang Park, Gyuwon Sim, Hyeongho Na, Jiseok Kwak, Sumin Lee, Richard Lee Kim, Donghyeok Shin, Byeonghu Na, Yeongmin Kim, and Il-Chul Moon.
+
+  * The proposed AC-Sampler runs Metropolis-adjusted Langevin chains at intermediate noise levels of a pre-trained diffusion model. By using a time-dependent discriminator for Metropolis-Hastings correction and sharing early denoising computation across accepted samples, it improves sample fidelity while reducing the average number of function evaluations per sample.
+
+* AMiD: Knowledge Distillation for LLMs with α-mixture Assistant Distribution (ICLR 2026) - Donghyeok Shin, Yeongmin Kim, Suhyeon Jo, Byeonghu Na, and Il-Chul Moon.
+
+  * The proposed α-mixture Distillation (AMiD) framework introduces a continuous family of assistant distributions and generalizes the divergences used for knowledge distillation. This design addresses teacher-student capacity gaps and training instability caused by near-zero output probabilities while providing a unified view of previously fragmented assistant-distribution methods.
+
+* Distillation of Large Language Models via Concrete Score Matching (ICLR 2026) - Yeongmin Kim, Donghyeok Shin, Mina Kang, Byeonghu Na, and Il-Chul Moon.
+
+  * The proposed Concrete Score Distillation (CSD) matches pairwise logit residuals between teacher and student models rather than matching token probabilities. It respects the additive-shift invariance of logits, admits a linear-time implementation, and provides weighting choices that control the fidelity-diversity trade-off.
+
+* Lookahead Sample Reward Guidance for Test-Time Scaling of Diffusion Models (ICML 2026 Spotlight) - Yeongmin Kim, Donghyeok Shin, Byeonghu Na, Minsang Park, Richard Lee Kim, and Il-Chul Moon.
+
+  * The proposed Lookahead Sample Reward Guidance (LiDAR) improves test-time reward alignment in diffusion models by generating and evaluating lookahead samples before guiding the remaining denoising process. Its performance scales with both the accuracy and the number of lookahead samples.
+
 * LAGMA: LAtent Goal-guided Multi-agent Reinforcement Learning (ICML 2024) - Hyungho Na and Il-Chul Moon.
 
   * The proposed LAtent Goal-guided Multi-Agent reinforcement learning (LAGMA) method generates goal-reaching trajectories in latent space and motivates agents with a latent goal-guided incentive system. LAGMA employs a modified VQ-VAE to create a quantized latent space and an extended VQ codebook for trajectory generation, significantly improving task performance in complex environments.

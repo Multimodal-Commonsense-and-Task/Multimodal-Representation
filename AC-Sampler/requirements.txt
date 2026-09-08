@@ -1,0 +1,13 @@
+# Tested with Python 3.8, CUDA 11.3
+torch==1.12.1
+torchvision==0.13.1
+numpy>=1.20
+scipy>=1.7.1
+click>=8.0
+pillow>=8.3.1
+tqdm
+requests
+sortedcontainers
+
+# Only needed for evaluations/evaluator.py (Precision / Recall / IS)
+# tensorflow>=2.0
