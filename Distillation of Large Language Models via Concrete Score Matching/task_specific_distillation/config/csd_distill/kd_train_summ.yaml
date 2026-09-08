@@ -1,0 +1,49 @@
+# Task specific data
+task_params:
+  task_type: "summ_1k"
+  inp_length: 1024
+  max_new_tokens: 128
+  # max_length: 1152 # This will be calculated as inp_length + max_new_tokens
+  expected_seq_len: 0
+
+
+# Knowledge Distillation (KD) settings
+kd_params:
+  kd_type: "supervised_kd"
+  distance_metric: "csd_ts_mix"
+  alpha : 0.15
+
+
+# Training parameters
+training_params:
+  seed: 20
+  lr: 1.0e-5
+  grad_acc_size: 8
+  num_epoch: 3
+  eval_step: 25
+  early_stop_epoch: 3
+  mixed_precision: "bf16" # accelerate option
+
+# Model and Tokenizer settings
+model_params:
+  # Path to the SFT teacher model checkpoint
+  checkpoint_template: ./ckpt/teacher/gemma-7b-it-summ-1k/ # Specify the path to the SFT teacher checkpoint.
+  assistant_checkpoint_template: "./ckpt/student/gemma-2b-it/" 
+  tokenizer_name: "google/gemma-2b-it"
+
+# Resource and Environment settings
+resource_params:
+  gpu_group: "0"
+  num_processes: 1
+  main_process_port: 29501 # Change if running multiple DDP trainings on the same server
+  # User specific settings - MODIFY THESE
+  user: username # IMPORTANT: Change this to your username
+  wandb_key: W&B key # IMPORTANT: Change this to your W&B key
+  wandb_proj: project name # IMPORTANT: Change this to your W&B project
+
+
+# Execution and Logging settings
+exec_params:
+  debug_enable: False
+  enable_stop_token: True
+  ckpt_prefix: "regular_run"

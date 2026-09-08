@@ -1,0 +1,55 @@
+# Ported from https://github.com/huggingface/alignment-handbook/blob/main/recipes/zephyr-7b-beta/dpo/config_full.yaml
+# with slight modifications to add `wandb` logging, missing `warmup_ratio: 0.1`, Notus-related stuff, and also to make
+
+
+# Model arguments
+model_name_or_path: google/gemma-7b-it  
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+trust_remote_code: true
+
+# Data training arguments
+dataset_mixer:
+  ./data/mt_1k: 1.0
+dataset_splits:
+- train_sft
+- test_sft
+preprocessing_num_workers: 12
+auto_insert_empty_system_msg: true
+
+# SFT trainer config
+bf16: true
+dataset_kwargs:
+  add_special_tokens: false  # We already wrap <bos> and <eos> in the chat template
+  append_concat_token: false # No need to add <eos> across samples
+do_eval: true
+eval_strategy: "steps"
+eval_steps: 3
+gradient_accumulation_steps: 8
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+
+learning_rate: 1.0e-05
+log_level: info
+logging_steps: 1
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_seq_length: 256 # 1024+128 # 512 + 128
+max_steps: -1
+num_train_epochs: 10
+output_dir: ./ckpt/teacher/gemma-7b-it-trans-1k  # IMPORTANT: Path to save the SFT teacher checkpoint.
+overwrite_output_dir: true
+per_device_eval_batch_size: 8
+per_device_train_batch_size: 8
+remove_unused_columns: true
+report_to:
+- tensorboard
+- wandb
+save_only_model: true
+save_total_limit: 10
+save_strategy: "steps"
+save_steps: 3
+seed: 42
+warmup_ratio: 0.1
+run_name: gemma-7b-it-trans-1k

@@ -1,0 +1,40 @@
+# Model arguments
+model_name_or_path: Qwen/Qwen2-1.5B
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+
+chat_template: "{% for message in messages %}{% if loop.first and messages[0]['role'] != 'system' %}{{ '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n' }}{% endif %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}{% if add_generation_prompt %}{{ '<|im_start|>assistant\n' }}{% endif %}"
+dataset_mixer:
+  HuggingFaceH4/ultrachat_200k: 1.0
+dataset_splits:
+- train_sft
+- test_sft
+preprocessing_num_workers: 1
+
+# SFTTrainer arugments
+bf16: true
+do_eval: true
+eval_strategy: epoch
+gradient_accumulation_steps: 64
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+learning_rate: 5.0e-05
+log_level: info
+logging_steps: 100000000 
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_seq_length: 2048
+max_steps: -1
+num_train_epochs: 1
+output_dir: outputs/qwen2.5-1.5b-sft
+overwrite_output_dir: true
+per_device_eval_batch_size: 1
+per_device_train_batch_size: 2
+push_to_hub: false
+remove_unused_columns: true
+save_strategy: "steps"
+save_steps: 100000000
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1

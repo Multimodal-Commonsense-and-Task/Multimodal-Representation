@@ -1,0 +1,26 @@
+# Large binaries: download separately (see README)
+checkpoints/*/*
+!checkpoints/*/.gitkeep
+samples/*
+!samples/.gitkeep
+data/*
+!data/.gitkeep
+*.pkl
+*.pt
+*.npz
+*.pickle
+*.pb
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.ipynb_checkpoints/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Paper PDF (kept locally only)
+*.pdf
